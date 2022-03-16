@@ -12,11 +12,11 @@ app.set('view engine', 'ejs');
 
 app.post('/api/javascript/run', (req, res) => {
     var outputData = [];
-    var input = `[1,2,3,4,5,6,7,8]`
+    var input = req.body.input.split('\n');
     // Save Console Log's To Ouput
     var log = console.log;
-    console.log = function (data) {
-        outputData.push(data);
+    console.log = function (...args) {
+        outputData.push(...args);
     }
     // End Submission So that user can check output
     function EndSubmission() {
@@ -25,13 +25,13 @@ app.post('/api/javascript/run', (req, res) => {
 
     // SetTimeout to End Submission
     setTimeout(() => {
-        if (!res.headersSent){
+        if (!res.headersSent) {
             EndSubmission();
         }
     }, 5000);
 
     try {
-    eval(req.body.code)
+        eval(req.body.code)
     } catch (error) {
         log(error);
         res.send({ error: error });
@@ -42,7 +42,11 @@ app.get('/Question/:id', (req, res) => {
     var data = fs.readFileSync(`./questions.json`, 'utf8');
     var questions = JSON.parse(data);
     var question = questions.find(q => q.id == req.params.id);
-    res.render('question', { question });
+    if (question) {
+        res.render('question', { question });
+    } else {
+        res.redirect('/404');
+    }
 })
 
 app.get('/', (req, res) => {
