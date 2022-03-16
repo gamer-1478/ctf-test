@@ -12,7 +12,7 @@ EndSubmission();
 <button onclick="RunCode()">Run Code</button>
 <br>
 <br>
-<textarea id="output" style="width: 80vw;" rows="8">
+<textarea id="input" style="width: 80vw;" rows="8">
 Input
 Goes
 Here
@@ -22,6 +22,7 @@ Enter Input With New Line
 <script>
     async function RunCode() {
         var code = document.getElementById("code").value;
+        var input = document.getElementById('input').value;
         var output = document.getElementById("output");
         output.value = "";
         await fetch("/api/javascript/run", {
@@ -30,7 +31,8 @@ Enter Input With New Line
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                code: code
+                code,
+                input
             })
         }).then(function (response) {
             return response.json();

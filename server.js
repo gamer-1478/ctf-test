@@ -12,7 +12,10 @@ app.set('view engine', 'ejs');
 
 app.post('/api/javascript/run', (req, res) => {
     var outputData = [];
-    var input = req.body.input.split('\n');
+    var input = 'no input provided';
+    if (req.body.input) {
+        input = req.body.input.split('\n');
+    }
     // Save Console Log's To Ouput
     var log = console.log;
     console.log = function (...args) {
