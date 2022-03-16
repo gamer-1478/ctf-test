@@ -1,0 +1,8 @@
+<h1>
+    Chose Your Problem From Below!
+</h1>
+<ol>
+    <% for (i in questions){ %>
+    <li><a href="/Question/<%= questions[i].id %>"><%= questions[i].ques %></a></li>
+    <% } %>
+</ol>

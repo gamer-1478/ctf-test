@@ -1,0 +1,1 @@
+The Real Flag is in Flag.txt which is hidden through .gitignore

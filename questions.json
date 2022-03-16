@@ -1,0 +1,12 @@
+[
+    {
+        "id": "test",
+        "ques": "Reverse A string",
+        "testCases": [{"input": "abc", "output": "cba"}, {"input": "123", "output": "321"}]
+    },
+    {
+        "id": "test2",
+        "ques": "Console.log Hmmm",
+        "testCases":[{"input":"Hmmm", "output":"Hmmm"}]
+    }
+]

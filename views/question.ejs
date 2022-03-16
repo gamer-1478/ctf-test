@@ -1,0 +1,41 @@
+<h1>Your Problem</h1>
+<h5><%= question.ques %> </h5>
+<textarea id="code" style="width: 80vw;" rows="30">
+//Write Your JavaScript Code Here To Solve Problem
+
+//Input Is provided in a array input can be accessed globally.
+//To End Submission call the function EndSubmission()
+//If not called, Will Be ended Automatically in 15 seconds.
+console.log(input);
+EndSubmission();
+</textarea><br>
+<button onclick="RunCode()">Run Code</button>
+<button>Submit Code</button>
+<br>
+<br>
+<textarea id="output" style="width: 80vw;" rows="8">Output</textarea>
+<script>
+    async function RunCode() {
+        var code = document.getElementById("code").value;
+        var output = document.getElementById("output");
+        output.value = "";
+        await fetch("/api/javascript/run", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                code: code
+            })
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            if (data.hasOwnProperty("output")) {
+                output.value = data.output;
+            }
+            else if (data.hasOwnProperty("error")) {
+                output.value = "Ran Into Error: "+data.error;
+            }
+        });
+    }
+</script>
